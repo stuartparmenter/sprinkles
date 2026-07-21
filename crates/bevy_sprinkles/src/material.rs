@@ -18,7 +18,8 @@ const SHADER_ASSET_PATH: &str = "embedded://bevy_sprinkles/shaders/particle_mate
 pub const TRAIL_THICKNESS_CURVE_SAMPLES: usize = 16;
 
 /// GPU-side per-emitter uniforms passed to the particle material shader.
-#[derive(Clone, Copy, ShaderType)]
+#[repr(C)]
+#[derive(Clone, Copy, ShaderType, bytemuck::Pod, bytemuck::Zeroable)]
 pub struct ParticleEmitterUniforms {
     /// World-space transform matrix for the emitter.
     pub emitter_transform: Mat4,
@@ -40,7 +41,11 @@ pub struct ParticleEmitterUniforms {
     pub transform_align: u32,
     /// Baked trail thickness curve samples.
     pub trail_thickness_curve: [f32; TRAIL_THICKNESS_CURVE_SAMPLES],
+    /// Trailing padding up to the struct's 16-byte WGSL alignment.
+    pub _pad: [u32; 3],
 }
+
+const _: () = assert!(size_of::<ParticleEmitterUniforms>() == 160);
 
 impl Default for ParticleEmitterUniforms {
     fn default() -> Self {
@@ -52,6 +57,7 @@ impl Default for ParticleEmitterUniforms {
             trail_size: 1,
             transform_align: 0,
             trail_thickness_curve: [1.0; TRAIL_THICKNESS_CURVE_SAMPLES],
+            _pad: [0; 3],
         }
     }
 }
