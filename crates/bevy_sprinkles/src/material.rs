@@ -12,7 +12,7 @@ use bevy::{
     shader::ShaderRef,
 };
 
-const SHADER_ASSET_PATH: &str = "embedded://bevy_sprinkles/shaders/particle_material.wgsl";
+const SHADER_ASSET_PATH: &str = "embedded://bevy_sprinkles/shaders/particle_material.wesl";
 
 /// Number of samples in the baked trail thickness curve LUT.
 pub const TRAIL_THICKNESS_CURVE_SAMPLES: usize = 16;

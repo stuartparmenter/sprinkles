@@ -32,3 +32,55 @@ thiserror = "2"
 bytemuck = { version = "1.14", features = ["derive"] }
 bitflags = { version = "2", features = ["serde"] }
 paste = "1"
+
+# Resolve the bevy 0.20.0-dev requirement from the rtg-dev fork of bevy main
+# (crates.io has no 0.20 release). Mirrors the patch set enid's workspace uses
+# when it consumes bevy_sprinkles as a git dependency.
+[patch.crates-io]
+bevy = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_a11y = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_animation = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_anti_alias = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_app = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_asset = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_camera = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_color = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_core_pipeline = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_derive = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_diagnostic = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_ecs = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_encase_derive = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_gilrs = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_gizmos = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_gltf = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_image = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_input = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_input_focus = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_internal = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_light = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_log = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_macro_utils = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_material = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_math = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_mesh = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_pbr = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_picking = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_platform = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_post_process = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_ptr = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_reflect = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_render = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_scene = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_shader = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_sprite = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_sprite_render = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_state = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_tasks = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_text = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_time = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_transform = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_ui = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_ui_render = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_utils = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_window = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
+bevy_winit = { git = "https://github.com/stuartparmenter/bevy", branch = "rtg-dev" }
