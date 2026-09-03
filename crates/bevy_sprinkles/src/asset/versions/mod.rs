@@ -50,7 +50,10 @@ pub fn migrate(bytes: &[u8]) -> Result<MigrationResult, MigrationError> {
             })
         }
         "0.2" => {
-            let asset: ParticlesAsset = ron::de::from_bytes(bytes)?;
+            let mut asset: ParticlesAsset = ron::de::from_bytes(bytes)?;
+            // 0.2 is format-compatible with 0.3; only the stamp needs updating so a
+            // re-save doesn't write the old version back out.
+            asset.sprinkles_version = current.to_string();
             Ok(MigrationResult {
                 asset,
                 was_migrated: true,
