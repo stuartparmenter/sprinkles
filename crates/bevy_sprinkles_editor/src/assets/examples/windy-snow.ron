@@ -26,7 +26,7 @@
                     emissive_exposure_weight: 0.9,
                     alpha_mode: Blend,
                     perceptual_roughness: 0.5,
-                    specular: 0.0,
+                    specular_weight: 0.0,
                     specular_tint: (1.0, 1.0, 1.0, 0.0),
                     unlit: true,
                 )),

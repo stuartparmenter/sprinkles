@@ -173,7 +173,7 @@ fn material_variants() -> Vec<VariantDefinition> {
                         .with_max(1.0),
                 )
                 .override_field("metallic", VariantField::percent("metallic"))
-                .override_field("specular", VariantField::percent("specular"))
+                .override_field("specular_weight", VariantField::f32("specular_weight").with_min(0.0))
                 .override_field(
                     "attenuation_distance",
                     VariantField::new("attenuation_distance").with_kind(FieldKind::F32OrInfinity),
@@ -185,7 +185,7 @@ fn material_variants() -> Vec<VariantDefinition> {
                     vec!["alpha_mode"],
                     vec!["perceptual_roughness"],
                     vec!["metallic"],
-                    vec!["specular"],
+                    vec!["specular_weight"],
                     vec!["metallic_roughness_texture"],
                     vec!["normal_map_texture"],
                     vec!["flip_normal_map_y"],

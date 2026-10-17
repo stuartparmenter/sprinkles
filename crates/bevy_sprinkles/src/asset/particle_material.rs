@@ -125,7 +125,7 @@ fn default_alpha_mode() -> SerializableAlphaMode {
     SerializableAlphaMode::Opaque
 }
 
-fn default_specular() -> f32 {
+fn default_specular_weight() -> f32 {
     1.0
 }
 
@@ -243,16 +243,17 @@ pub struct StandardParticleMaterial {
     #[serde(default, skip_serializing_if = "is_zero_f32")]
     pub metallic: f32,
 
-    /// Specular strength for non-metals on a linear scale of `[0.0, 1.0]`.
+    /// Scales the reflectance at normal incidence of non-metals, like
+    /// OpenPBR's `specular_weight`.
     ///
-    /// Scales the whole specular response of non-metals, at normal incidence
-    /// and at grazing angles. [`ior`](Self::ior) sets the reflectance at normal
-    /// incidence that this value scales. At `0.0`, non-metals have no specular
-    /// response.
+    /// [`ior`](Self::ior) sets the reflectance that this value scales. Scaling
+    /// it is the same as changing the IOR, so reflection still rises at grazing
+    /// angles. At `0.0`, non-metals don't reflect. Values above `1.0` raise the
+    /// reflectance up to 100%.
     ///
     /// Defaults to `1.0`.
-    #[serde(default = "default_specular")]
-    pub specular: f32,
+    #[serde(default = "default_specular_weight")]
+    pub specular_weight: f32,
 
     /// The blue channel contains metallic values, and the green channel contains
     /// the roughness values. Other channels are unused.
@@ -286,9 +287,10 @@ pub struct StandardParticleMaterial {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub occlusion_texture: Option<TextureRef>,
 
-    /// A color that multiplies the reflectance at normal incidence of non-metals.
+    /// A color that multiplies the light that non-metals reflect, at all
+    /// angles, like OpenPBR's `specular_color`.
     ///
-    /// Components can exceed `1.0`. The tinted reflectance is clamped to `1.0`.
+    /// Components are clamped to `[0.0, 1.0]`.
     ///
     /// Defaults to white `[1.0, 1.0, 1.0, 1.0]`.
     #[serde(
@@ -454,7 +456,7 @@ impl Default for StandardParticleMaterial {
             alpha_mode: default_alpha_mode(),
             perceptual_roughness: default_perceptual_roughness(),
             metallic: 0.0,
-            specular: default_specular(),
+            specular_weight: default_specular_weight(),
             metallic_roughness_texture: None,
             normal_map_texture: None,
             flip_normal_map_y: false,
@@ -499,7 +501,7 @@ impl StandardParticleMaterial {
             alpha_mode: self.alpha_mode.into(),
             perceptual_roughness: self.perceptual_roughness,
             metallic: self.metallic,
-            specular: self.specular,
+            specular_weight: self.specular_weight,
             metallic_roughness_texture: load_tex(&self.metallic_roughness_texture),
             normal_map_texture: load_tex(&self.normal_map_texture),
             flip_normal_map_y: self.flip_normal_map_y,
@@ -537,7 +539,7 @@ impl StandardParticleMaterial {
             alpha_mode: material.alpha_mode.into(),
             perceptual_roughness: material.perceptual_roughness,
             metallic: material.metallic,
-            specular: material.specular,
+            specular_weight: material.specular_weight,
             metallic_roughness_texture: None,
             normal_map_texture: None,
             flip_normal_map_y: material.flip_normal_map_y,
@@ -584,7 +586,7 @@ impl StandardParticleMaterial {
         }
         hash_f32(&mut hasher, self.perceptual_roughness);
         hash_f32(&mut hasher, self.metallic);
-        hash_f32(&mut hasher, self.specular);
+        hash_f32(&mut hasher, self.specular_weight);
         self.metallic_roughness_texture.hash(&mut hasher);
         self.normal_map_texture.hash(&mut hasher);
         self.flip_normal_map_y.hash(&mut hasher);
